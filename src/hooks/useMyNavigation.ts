@@ -10,6 +10,9 @@ export const useMyNavigation = () => {
   const goToRegister = () => {
     navigate("/register");
   };
+  const goToGame = () => {
+    navigate("/game");
+  };
 
-  return { goToHome, goToRegister };
+  return { goToHome, goToRegister, goToGame };
 };

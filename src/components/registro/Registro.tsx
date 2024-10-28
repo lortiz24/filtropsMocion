@@ -1,11 +1,14 @@
 import { alpha, Box, rem, Stack, Text, TextInput } from "@mantine/core";
 import { isEmail, useForm } from "@mantine/form";
 import { IconMail, IconUser } from "@tabler/icons-react";
+import { useMyNavigation } from "../../hooks/useMyNavigation";
 type RegisterForm = {
   name: string;
   email: string;
 };
 export const Registro = () => {
+  const { goToGame } = useMyNavigation();
+
   const registerForm = useForm<RegisterForm>({
     initialValues: {
       email: "",
@@ -90,6 +93,7 @@ export const Registro = () => {
         <form
           onSubmit={registerForm.onSubmit((formData) => {
             console.log("formData", formData);
+            goToGame();
           })}
         >
           <Stack align="center" gap={"36px"}>
