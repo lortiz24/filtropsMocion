@@ -7,12 +7,12 @@ export const Game = () => {
   const { goToFinished } = useMyNavigation();
   const { seconds } = useCountDown(10);
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (seconds === 0) {
       goToFinished();
     }
   }, [seconds]);
-
+ */
   return (
     <Box h={"100vh"} w={"100%"} pos={"relative"}>
       <Box
@@ -37,9 +37,12 @@ export const Game = () => {
         left={0}
         style={{
           backgroundImage: 'url("assets/game/MarcoGame.png")',
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
           width: "100%",
           height: "100%",
-          zIndex: 10,
+          zIndex: 1000,
         }}
       >
         <Stack h={"100%"} justify="center" gap={0}>

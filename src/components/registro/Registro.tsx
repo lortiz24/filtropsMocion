@@ -32,6 +32,9 @@ export const Registro = () => {
         alignItems: "flex-start",
         backgroundImage: 'url("assets/register/BG_Registro.png")',
         position: "relative",
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
       }}
     >
       <div
@@ -76,6 +79,9 @@ export const Registro = () => {
         <div
           style={{
             backgroundImage: 'url("assets/register/LogoBgRegister.png")',
+            backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
             width: "100%",
             height: "514px",
           }}
