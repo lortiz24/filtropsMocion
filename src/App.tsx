@@ -6,6 +6,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Registro } from "./components/registro/Registro";
 import { Game } from "./components/game/Game";
+import { Finish } from "./components/finish/Finish";
 export default function App() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Registro />} />
             <Route path="/game" element={<Game />} />
+            <Route path="/finish" element={<Finish />} />
           </Routes>
         </Box>
       </MantineProvider>

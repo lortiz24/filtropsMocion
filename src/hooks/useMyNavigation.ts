@@ -13,6 +13,9 @@ export const useMyNavigation = () => {
   const goToGame = () => {
     navigate("/game");
   };
+  const goToFinished = () => {
+    navigate("/finish");
+  };
 
-  return { goToHome, goToRegister, goToGame };
+  return { goToHome, goToRegister, goToGame, goToFinished };
 };
