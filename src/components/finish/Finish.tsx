@@ -1,4 +1,5 @@
 import { Box, Image, Stack, Text } from "@mantine/core";
+import QRCode from "react-qr-code";
 
 export const Finish = () => {
   return (
@@ -54,8 +55,15 @@ export const Finish = () => {
             w={"380px"}
             h={"380px"}
             bg={"white"}
-            style={{ zIndex: 10 }}
-          ></Box>
+            style={{
+              zIndex: 10,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <QRCode value="https://www.mocion.com.co/" size={341} />
+          </Box>
         </Stack>
       </Stack>
     </Box>
