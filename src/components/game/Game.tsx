@@ -14,7 +14,6 @@ export const Game = () => {
   const { goToShowPhoto } = useMyNavigation();
   const auxDeeparInstance = deepARManager.getInstanceDeepAR();
 
-  console.log("auxDeeparInstance", auxDeeparInstance);
   const getCapture = async () => {
     if (seconds > 0) return;
     const deeparInstance = deepARManager.getInstanceDeepAR();
@@ -33,9 +32,9 @@ export const Game = () => {
 
     initializeDeepAR();
 
-    return () => {
+   /*  return () => {
       deepARManager.stopCamera(); // Limpieza al desmontar
-    };
+    }; */
   }, []);
 
   useEffect(() => {
