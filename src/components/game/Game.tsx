@@ -2,7 +2,7 @@ import { alpha, Box, Image, Stack, Text } from "@mantine/core";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
 import { useCountDown } from "../../hooks/useCountDown";
 import { useEffect, useLayoutEffect } from "react";
-import { deepARManager } from "../../config/deepar";
+// import { deepARManager } from "../../config/deepar";
 import { useAppStore } from "../../hooks/useAppStore";
 import ButtonAlas from "../../../public/assets/game/ButtonAlas.png";
 import ButtonBigote from "../../../public/assets/game/ButtonBigote.png";
@@ -17,29 +17,37 @@ const effects = {
   mascara:
     "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2Fmascara.deepar?alt=media&token=bad27506-0787-4a22-8604-8e19b3da917c",
 };
-export const deepAR = await deepar.initialize({
-  licenseKey:
-    "3535704d98aa530936e93d59791f01fdf4035a0332abda643a87dca0e09f271d1d5d3e2efc5358ff",
-  previewElement: document.querySelector("#deepar-canvas") as HTMLElement,
-  effect: effects.alas,
-  additionalOptions: {
-    hint: "enableFaceTrackingCnn",
-    cameraConfig: {
-      facingMode: "environment",
-      disableDefaultCamera: true,
+let deepAR: deepar.DeepAR | null = null;
+
+const main = async () => {
+  if (deepAR) return;
+  deepAR = await deepar.initialize({
+    licenseKey:
+      "3535704d98aa530936e93d59791f01fdf4035a0332abda643a87dca0e09f271d1d5d3e2efc5358ff",
+    previewElement: document.querySelector("#deepar-canvas") as HTMLElement,
+    effect: effects.alas,
+    additionalOptions: {
+      hint: "enableFaceTrackingCnn",
+      cameraConfig: {
+        facingMode: "environment",
+        disableDefaultCamera: true,
+      },
     },
-  },
-});
+  });
+};
+main();
 
 export const Game = () => {
   const { seconds } = useCountDown(10);
   const { handledSetImageBlob } = useAppStore();
   const { goToShowPhoto } = useMyNavigation();
-
+  console.log("deepAR", deepAR);
   useLayoutEffect(() => {
-    deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
-    deepAR.startCamera();
-  }, []);
+    if (deepAR) {
+      deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
+      deepAR.startCamera();
+    }
+  }, [deepAR]);
 
   /* const auxDeepar = deepARManager.getInstanceDeepAR();
 console.log('auxDeepar', auxDeepar)
@@ -53,7 +61,7 @@ console.log('auxDeepar', auxDeepar)
     if (seconds > 0) return;
     /* const deeparInstance = deepARManager.getInstanceDeepAR();
     const imageBlob = await deeparInstance?.takeScreenshot(); */
-    const imageBlob = await deepAR.takeScreenshot();
+    const imageBlob = await deepAR?.takeScreenshot();
     if (!imageBlob) return;
     handledSetImageBlob(imageBlob);
     goToShowPhoto();
@@ -125,14 +133,14 @@ console.log('auxDeepar', auxDeepar)
             w={"282.84px"}
             onClick={() => {
               // deepARManager.switchEffect("alas");
-              deepAR.switchEffect(effects.alas);
+              if (deepAR) deepAR.switchEffect(effects.alas);
             }}
           />
           <Image
             src={ButtonBigote}
             w={"282.84px"}
             onClick={() => {
-              deepAR.switchEffect(effects.bigote);
+              if (deepAR) deepAR.switchEffect(effects.bigote);
               // deepARManager.switchEffect("glasses");
             }}
           />
@@ -140,7 +148,7 @@ console.log('auxDeepar', auxDeepar)
             src={ButtonMascara}
             w={"282.84px"}
             onClick={() => {
-              deepAR.switchEffect(effects.mascara);
+              if (deepAR) deepAR.switchEffect(effects.mascara);
             }}
           />
         </Stack>

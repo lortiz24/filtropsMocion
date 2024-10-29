@@ -2,6 +2,7 @@ import { alpha, Box, rem, Stack, Text, TextInput } from "@mantine/core";
 import { isEmail, useForm } from "@mantine/form";
 import { IconMail, IconUser } from "@tabler/icons-react";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
+import { checkInService } from "../../services/checkIn";
 type RegisterForm = {
   name: string;
   email: string;
@@ -80,8 +81,8 @@ export const Registro = () => {
           style={{
             backgroundImage: 'url("assets/register/LogoBgRegister.png")',
             backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
             width: "100%",
             height: "514px",
           }}
@@ -97,8 +98,12 @@ export const Registro = () => {
         </Text>
 
         <form
-          onSubmit={registerForm.onSubmit((formData) => {
-            console.log("formData", formData);
+          onSubmit={registerForm.onSubmit(async ({ email, name }) => {
+            const epa = await checkInService.saveUserParticipation({
+              email,
+              names: name,
+            });
+            console.log("epa", epa);
             goToGame();
           })}
         >
