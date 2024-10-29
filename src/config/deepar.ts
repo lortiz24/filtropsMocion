@@ -28,7 +28,7 @@ class DeepARManager {
 
     this.deepAR = await deepar.initialize({
       licenseKey:
-        "4f0a7bfaa7ad51bf4de83dc9d9db7ff36d5efe504894d1d30580de169b9e278dbd994020650efcac",
+        "3535704d98aa530936e93d59791f01fdf4035a0332abda643a87dca0e09f271d1d5d3e2efc5358ff",
       previewElement: document.querySelector("#myNewDiv") as HTMLElement,
       effect: effect ?? this.effects.alas,
       additionalOptions: {

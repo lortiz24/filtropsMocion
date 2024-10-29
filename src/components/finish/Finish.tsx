@@ -4,9 +4,9 @@ import { useAppStore } from "../../hooks/useAppStore";
 import { useCountDown } from "../../hooks/useCountDown";
 import { useEffect } from "react";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
-// import { useCountDown } from "../../hooks/useCountDown";
-// import { useMyNavigation } from "../../hooks/useMyNavigation";
-
+import vectorImg from "../../../public/assets/finish/Vector.png";
+import LogoBgRegister from "../../../public/assets/register/LogoBgRegister.png";
+import Genial from "../../../public/assets/finish/Genial.png";
 export const Finish = () => {
   const { downloadImageUrl } = useAppStore();
   const { goToHome } = useMyNavigation();
@@ -33,7 +33,7 @@ export const Finish = () => {
       <div
         style={{
           position: "absolute",
-          backgroundImage: 'url("assets/finish/Vector.png")',
+          // backgroundImage: 'url("assets/finish/Vector.png")',
           bottom: 0,
           zIndex: 1,
           backgroundSize: "contain",
@@ -46,6 +46,7 @@ export const Finish = () => {
           justifyContent: "center",
         }}
       >
+        <Image src={vectorImg} width={"100%"} height={"100%"} />
         <div
           style={{
             marginTop: "234px",
@@ -60,9 +61,9 @@ export const Finish = () => {
         />
       </div>
       <Stack gap={"151px"} pt={"113px"} w={"100%"} align="center">
-        <Image src={"assets/register/LogoBgRegister.png"} w={"832px"} />
+        <Image src={LogoBgRegister} w={"832px"} />
         <Stack w={"100%"} align="center" gap={"42px"}>
-          <Image src={"assets/finish/Genial.png"} w={"832px"} />
+          <Image src={Genial} w={"832px"} />
           <Text fz={"50px"} px={"161px"} lh={"53px"} ta={"center"}>
             Gracias por participar, puedes descargar tu foto escaneando el
             siguiente código QR.

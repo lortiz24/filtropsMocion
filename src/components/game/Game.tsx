@@ -4,12 +4,17 @@ import { useCountDown } from "../../hooks/useCountDown";
 import { useEffect, useLayoutEffect } from "react";
 import { deepARManager } from "../../config/deepar";
 import { useAppStore } from "../../hooks/useAppStore";
+import ButtonAlas from "../../../public/assets/game/ButtonAlas.png";
+import ButtonBigote from "../../../public/assets/game/ButtonBigote.png";
+import ButtonMascara from "../../../public/assets/game/ButtonMascara.png";
 
 export const Game = () => {
   const { seconds } = useCountDown(10);
   const { handledSetImageBlob } = useAppStore();
   const { goToShowPhoto } = useMyNavigation();
+  const auxDeeparInstance = deepARManager.getInstanceDeepAR();
 
+  console.log("auxDeeparInstance", auxDeeparInstance);
   const getCapture = async () => {
     if (seconds > 0) return;
     const deeparInstance = deepARManager.getInstanceDeepAR();
@@ -75,21 +80,21 @@ export const Game = () => {
       >
         <Stack h={"100%"} justify="center" gap={0}>
           <Image
-            src={"assets/game/ButtonAlas.png"}
+            src={ButtonAlas}
             w={"282.84px"}
             onClick={() => {
               deepARManager.switchEffect("alas");
             }}
           />
           <Image
-            src={"assets/game/ButtonBigote.png"}
+            src={ButtonBigote}
             w={"282.84px"}
             onClick={() => {
               deepARManager.switchEffect("glasses");
             }}
           />
           <Image
-            src={"assets/game/ButtonMascara.png"}
+            src={ButtonMascara}
             w={"282.84px"}
             onClick={() => {
               deepARManager.switchEffect("mascara");

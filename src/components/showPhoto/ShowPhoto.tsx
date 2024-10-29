@@ -9,7 +9,7 @@ import { useAppStore } from "../../hooks/useAppStore";
 
 export const ShowPhoto = () => {
   const { handledSetImageUrl, imageBlob } = useAppStore();
-console.log('imageBlob', imageBlob)
+
   const { seconds } = useCountDown(10);
   const { goToFinished } = useMyNavigation();
 
