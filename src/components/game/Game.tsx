@@ -7,35 +7,77 @@ import { useAppStore } from "../../hooks/useAppStore";
 import ButtonAlas from "../../../public/assets/game/ButtonAlas.png";
 import ButtonBigote from "../../../public/assets/game/ButtonBigote.png";
 import ButtonMascara from "../../../public/assets/game/ButtonMascara.png";
+import * as deepar from "deepar";
+
+const effects = {
+  bigote: "",
+  alas: "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2Falas.deepar?alt=media&token=78760047-a5b9-4ca0-bbb9-447414eb9054",
+  glasses:
+    "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2FGlasses.deepar?alt=media&token=0cc77777-f4ed-4573-ad1c-2fc0067a0c5d",
+  mascara:
+    "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2Fmascara.deepar?alt=media&token=bad27506-0787-4a22-8604-8e19b3da917c",
+};
+export const deepAR = await deepar.initialize({
+  licenseKey:
+    "3535704d98aa530936e93d59791f01fdf4035a0332abda643a87dca0e09f271d1d5d3e2efc5358ff",
+  previewElement: document.querySelector("#deepar-canvas") as HTMLElement,
+  effect: effects.alas,
+  additionalOptions: {
+    hint: "enableFaceTrackingCnn",
+    cameraConfig: {
+      facingMode: "environment",
+      disableDefaultCamera: true,
+    },
+  },
+});
 
 export const Game = () => {
   const { seconds } = useCountDown(10);
   const { handledSetImageBlob } = useAppStore();
   const { goToShowPhoto } = useMyNavigation();
-  const auxDeeparInstance = deepARManager.getInstanceDeepAR();
 
+  useLayoutEffect(() => {
+    deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
+    deepAR.startCamera();
+  }, []);
+
+  /* const auxDeepar = deepARManager.getInstanceDeepAR();
+console.log('auxDeepar', auxDeepar)
+  useEffect(() => {
+    if (auxDeepar) {
+      auxDeepar.startCamera();
+    }
+  }, []);
+ */
   const getCapture = async () => {
     if (seconds > 0) return;
-    const deeparInstance = deepARManager.getInstanceDeepAR();
-    const imageBlob = await deeparInstance?.takeScreenshot();
+    /* const deeparInstance = deepARManager.getInstanceDeepAR();
+    const imageBlob = await deeparInstance?.takeScreenshot(); */
+    const imageBlob = await deepAR.takeScreenshot();
     if (!imageBlob) return;
     handledSetImageBlob(imageBlob);
     goToShowPhoto();
-    deeparInstance?.stopCamera();
+    deepAR?.stopCamera();
   };
 
-  useLayoutEffect(() => {
-    const initializeDeepAR = async () => {
-      await deepARManager.initialize();
-      deepARManager.getInstanceDeepAR()?.startCamera();
+  /*  useLayoutEffect(() => {
+    if (!auxDeepar) {
+      const initializeDeepAR = async () => {
+        await deepARManager.initialize();
+        console.log(
+          "deepARManager.getInstanceDeepAR()",
+          deepARManager.getInstanceDeepAR()
+        );
+        deepARManager.getInstanceDeepAR()?.startCamera();
+      };
+
+      initializeDeepAR();
+    }
+    return () => {
+      console.log("Me desmonte");
+      deepARManager.stopCamera();
     };
-
-    initializeDeepAR();
-
-   /*  return () => {
-      deepARManager.stopCamera(); // Limpieza al desmontar
-    }; */
-  }, []);
+  }, []); */
 
   useEffect(() => {
     getCapture();
@@ -82,21 +124,23 @@ export const Game = () => {
             src={ButtonAlas}
             w={"282.84px"}
             onClick={() => {
-              deepARManager.switchEffect("alas");
+              // deepARManager.switchEffect("alas");
+              deepAR.switchEffect(effects.alas);
             }}
           />
           <Image
             src={ButtonBigote}
             w={"282.84px"}
             onClick={() => {
-              deepARManager.switchEffect("glasses");
+              deepAR.switchEffect(effects.bigote);
+              // deepARManager.switchEffect("glasses");
             }}
           />
           <Image
             src={ButtonMascara}
             w={"282.84px"}
             onClick={() => {
-              deepARManager.switchEffect("mascara");
+              deepAR.switchEffect(effects.mascara);
             }}
           />
         </Stack>

@@ -24,6 +24,7 @@ class DeepARManager {
   }
 
   public async initialize(effect?: string): Promise<void> {
+    console.log('this.deepAR', this.deepAR)
     if (this.deepAR) return; // Ya está inicializado
 
     this.deepAR = await deepar.initialize({
@@ -48,7 +49,6 @@ class DeepARManager {
   public stopCamera(): void {
     if (this.deepAR) {
       this.deepAR.stopCamera();
-      this.deepAR = null; // Limpieza
     }
   }
 
