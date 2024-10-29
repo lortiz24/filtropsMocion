@@ -1,20 +1,48 @@
 import { alpha, Box, Image, Stack, Text } from "@mantine/core";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
 import { useCountDown } from "../../hooks/useCountDown";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
+import * as deepar from "deepar";
+
+const effect = {
+  bigote: "",
+  alas: "public/effects/alas.deepar",
+  glasses: "public/effects/Glasses.deepar",
+  mascara: "public/effects/mascara.deepar",
+};
+export const deepAR = await deepar.initialize({
+  licenseKey:
+    "4688c3fb0c14be9f26fc06708e39132fca8fa2bc4e515a0b4dad8918c97f5a5a13d7392afadfedfe",
+  previewElement: document.querySelector("#deepar-canvas"),
+  effect: effect.glasses,
+  additionalOptions: {
+    hint: "enableFaceTrackingCnn",
+    cameraConfig: {
+      facingMode: "environment",
+      disableDefaultCamera: true,
+    },
+  },
+});
 
 export const Game = () => {
   const { goToFinished } = useMyNavigation();
   const { seconds } = useCountDown(10);
 
-/*   useEffect(() => {
+  useEffect(() => {
     if (seconds === 0) {
       goToFinished();
     }
   }, [seconds]);
- */
+
+  useLayoutEffect(() => {
+    deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
+    deepAR.startCamera();
+  }, []);
+
   return (
     <Box h={"100vh"} w={"100%"} pos={"relative"}>
+      <div style={{ width: "100%", height: "100%" }} id="myNewDiv"></div>
+
       <Box
         pos={"absolute"}
         top={0}

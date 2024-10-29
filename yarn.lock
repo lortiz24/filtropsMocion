@@ -1491,6 +1491,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deepar@npm:^5.6.11":
+  version: 5.6.11
+  resolution: "deepar@npm:5.6.11"
+  checksum: 10c0/d11c96b8ffc0a1555bbcd012aec851b36ca2c1713dae117c6dcc2c2626ed7a906a0c9c0897764b0a5def41192ad07e91846637eb6cf3ba6ed6e63bb7c2cf3cb4
+  languageName: node
+  linkType: hard
+
 "detect-node-es@npm:^1.1.0":
   version: 1.1.0
   resolution: "detect-node-es@npm:1.1.0"
@@ -3517,6 +3524,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.13.1"
     "@typescript-eslint/parser": "npm:^7.13.1"
     "@vitejs/plugin-react": "npm:^4.3.1"
+    deepar: "npm:^5.6.11"
     eslint: "npm:^8.57.0"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-react-refresh: "npm:^0.4.7"
