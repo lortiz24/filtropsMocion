@@ -6,7 +6,8 @@ import * as deepar from "deepar";
 import html2canvas from "html2canvas";
 import { firebaseApp } from "../../config/firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import { useAppStore } from "../../hooks/useAppStore";
+deepar.initialize;
 const effects = {
   bigote: "",
   alas: "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2Falas.deepar?alt=media&token=78760047-a5b9-4ca0-bbb9-447414eb9054",
@@ -37,13 +38,7 @@ main();
 export const Game = () => {
   const { goToFinished } = useMyNavigation();
   const { seconds } = useCountDown(10);
-
-  useLayoutEffect(() => {
-    if (deepAR) {
-      deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
-      deepAR.startCamera();
-    }
-  }, [deepAR]);
+  const { handledSetImageUrl } = useAppStore();
 
   const captureAndUploadImage = async () => {
     const element = document.getElementById("allCapture");
@@ -61,6 +56,7 @@ export const Game = () => {
             await uploadBytes(storageRef, blob);
             const downloadURL = await getDownloadURL(storageRef);
             console.log("Image uploaded and available at", downloadURL);
+            handledSetImageUrl(downloadURL);
             goToFinished();
             // Aquí puedes dar el enlace de descarga o redirigir al usuario
           } catch (uploadError) {
@@ -70,6 +66,13 @@ export const Game = () => {
       }, "image/png");
     }
   };
+
+  useLayoutEffect(() => {
+    if (deepAR) {
+      deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
+      deepAR.startCamera();
+    }
+  }, [deepAR]);
 
   useEffect(() => {
     if (seconds === 0) {

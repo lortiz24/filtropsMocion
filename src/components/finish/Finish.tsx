@@ -1,11 +1,12 @@
 import { Box, Image, Stack, Text } from "@mantine/core";
 import QRCode from "react-qr-code";
-import { useLocation } from "react-router-dom";
+import { useAppStore } from "../../hooks/useAppStore";
 // import { useCountDown } from "../../hooks/useCountDown";
 // import { useMyNavigation } from "../../hooks/useMyNavigation";
 
 export const Finish = () => {
-  const location = useLocation();
+  const { downloadImageUrl } = useAppStore();
+  console.log("downloadImageUrl", downloadImageUrl);
   // const { goToGame } = useMyNavigation();
   // const { seconds } = useCountDown(60);
   /* if (!location.state.downloadURL) {
@@ -103,9 +104,7 @@ export const Finish = () => {
             }}
           >
             <QRCode
-              value={
-                location?.state?.downloadUrl ?? "https://www.mocion.com.co/"
-              }
+              value={downloadImageUrl ?? "https://www.mocion.com.co/"}
               size={341}
             />
           </Box>
