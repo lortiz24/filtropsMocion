@@ -13,9 +13,12 @@ export const useMyNavigation = () => {
   const goToGame = () => {
     navigate("/game");
   };
+  const goToShowPhoto = () => {
+    navigate("/showPhoto");
+  };
   const goToFinished = () => {
     navigate("/finish");
   };
 
-  return { goToHome, goToRegister, goToGame, goToFinished };
+  return { goToHome, goToRegister, goToGame, goToFinished, goToShowPhoto };
 };

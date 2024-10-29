@@ -9,6 +9,7 @@ import { Game } from "./components/game/Game";
 import { Finish } from "./components/finish/Finish";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import { ShowPhoto } from "./components/showPhoto/ShowPhoto";
 export default function App() {
   return (
     <HashRouter>
@@ -19,6 +20,7 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Registro />} />
               <Route path="/game" element={<Game />} />
+              <Route path="/showPhoto" element={<ShowPhoto />} />
               <Route path="/finish" element={<Finish />} />
             </Routes>
           </Box>

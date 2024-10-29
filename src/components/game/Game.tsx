@@ -2,46 +2,22 @@ import { alpha, Box, Image, Stack, Text } from "@mantine/core";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
 import { useCountDown } from "../../hooks/useCountDown";
 import { useEffect, useLayoutEffect } from "react";
-import html2canvas from "html2canvas";
-import { firebaseApp } from "../../config/firebase";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { useAppStore } from "../../hooks/useAppStore";
 import { deepARManager } from "../../config/deepar";
+import { useAppStore } from "../../hooks/useAppStore";
 
 export const Game = () => {
-  const { goToFinished } = useMyNavigation();
   const { seconds } = useCountDown(10);
-  const { handledSetImageUrl } = useAppStore();
+  const { handledSetImageBlob } = useAppStore();
+  const { goToShowPhoto } = useMyNavigation();
 
-  const captureAndUploadImage = async () => {
-    const element = document.getElementById("allCapture");
-    const image = await deepARManager.getInstanceDeepAR()?.takeScreenshot();
-
-    if (element) {
-      const canvas = await html2canvas(element);
-      canvas.toBlob(async (blob) => {
-        if (blob) {
-          // Subida a Firebase
-          const storage = getStorage(firebaseApp);
-          const storageRef = ref(
-            storage,
-            `colombia4.0/captures/${Date.now()}.png`
-          );
-
-          try {
-            console.log("blob", blob);
-            await uploadBytes(storageRef, blob);
-            const downloadURL = await getDownloadURL(storageRef);
-            console.log("Image uploaded and available at", downloadURL);
-            handledSetImageUrl(downloadURL);
-            goToFinished();
-            // Aquí puedes dar el enlace de descarga o redirigir al usuario
-          } catch (uploadError) {
-            console.error("Error uploading image:", uploadError);
-          }
-        }
-      }, "image/png");
-    }
+  const getCapture = async () => {
+    if (seconds > 0) return;
+    const deeparInstance = deepARManager.getInstanceDeepAR();
+    const imageBlob = await deeparInstance?.takeScreenshot();
+    if (!imageBlob) return;
+    handledSetImageBlob(imageBlob);
+    goToShowPhoto();
+    deeparInstance?.stopCamera();
   };
 
   useLayoutEffect(() => {
@@ -58,13 +34,12 @@ export const Game = () => {
   }, []);
 
   useEffect(() => {
-    if (seconds === 0) {
-      captureAndUploadImage();
-    }
+    getCapture();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
 
   return (
-    <Box h={"100vh"} w={"100%"} pos={"relative"} id="allCapture">
+    <Box h={"100vh"} w={"100%"} pos={"relative"}>
       <div style={{ width: "100%", height: "100%" }} id="myNewDiv"></div>
 
       <Box
