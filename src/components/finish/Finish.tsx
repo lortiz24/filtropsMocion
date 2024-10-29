@@ -1,7 +1,47 @@
 import { Box, Image, Stack, Text } from "@mantine/core";
 import QRCode from "react-qr-code";
+import { useLocation } from "react-router-dom";
+// import { useCountDown } from "../../hooks/useCountDown";
+// import { useMyNavigation } from "../../hooks/useMyNavigation";
 
 export const Finish = () => {
+  const location = useLocation();
+  // const { goToGame } = useMyNavigation();
+  // const { seconds } = useCountDown(60);
+  /* if (!location.state.downloadURL) {
+    return (
+      <Box
+        h={"100vh"}
+        w={"100%"}
+        bg={"#6321C1"}
+        pos={"relative"}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text fz={"50px"} px={"161px"} lh={"53px"} ta={"center"}>
+          Ocurro un error al generar la imagen
+        </Text>
+        <Box style={{ display: "flex", justifyContent: "center" }} mt={"107px"}>
+          <button
+            onClick={goToGame}
+            style={{
+              padding: "43px 113px",
+              fontSize: "65px",
+              borderRadius: "24px",
+              backgroundColor: "#EB0AFF",
+              color: "white",
+            }}
+          >
+            Reeintentar
+          </button>
+        </Box>
+      </Box>
+    );
+  } */
   return (
     <Box
       h={"100vh"}
@@ -62,7 +102,12 @@ export const Finish = () => {
               alignItems: "center",
             }}
           >
-            <QRCode value="https://www.mocion.com.co/" size={341} />
+            <QRCode
+              value={
+                location?.state?.downloadUrl ?? "https://www.mocion.com.co/"
+              }
+              size={341}
+            />
           </Box>
         </Stack>
       </Stack>
