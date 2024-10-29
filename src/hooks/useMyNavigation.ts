@@ -4,7 +4,7 @@ export const useMyNavigation = () => {
   const navigate = useNavigate();
 
   const goToHome = () => {
-    navigate("/home");
+    navigate("/");
   };
 
   const goToRegister = () => {

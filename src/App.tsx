@@ -3,7 +3,7 @@ import { Box, MantineProvider } from "@mantine/core";
 import { theme } from "./theme";
 import { Home } from "./components/home/Home";
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { Registro } from "./components/registro/Registro";
 import { Game } from "./components/game/Game";
 import { Finish } from "./components/finish/Finish";
@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <MantineProvider theme={theme}>
           <Box h={"100vh"}>
@@ -24,6 +24,6 @@ export default function App() {
           </Box>
         </MantineProvider>
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

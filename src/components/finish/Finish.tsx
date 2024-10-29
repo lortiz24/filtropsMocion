@@ -1,50 +1,25 @@
 import { Box, Image, Stack, Text } from "@mantine/core";
 import QRCode from "react-qr-code";
 import { useAppStore } from "../../hooks/useAppStore";
+import { useCountDown } from "../../hooks/useCountDown";
+import { useEffect } from "react";
+import { useMyNavigation } from "../../hooks/useMyNavigation";
 // import { useCountDown } from "../../hooks/useCountDown";
 // import { useMyNavigation } from "../../hooks/useMyNavigation";
 
 export const Finish = () => {
   const { downloadImageUrl } = useAppStore();
-  console.log("downloadImageUrl", downloadImageUrl);
-  // const { goToGame } = useMyNavigation();
-  // const { seconds } = useCountDown(60);
-  /* if (!location.state.downloadURL) {
-    return (
-      <Box
-        h={"100vh"}
-        w={"100%"}
-        bg={"#6321C1"}
-        pos={"relative"}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text fz={"50px"} px={"161px"} lh={"53px"} ta={"center"}>
-          Ocurro un error al generar la imagen
-        </Text>
-        <Box style={{ display: "flex", justifyContent: "center" }} mt={"107px"}>
-          <button
-            onClick={goToGame}
-            style={{
-              padding: "43px 113px",
-              fontSize: "65px",
-              borderRadius: "24px",
-              backgroundColor: "#EB0AFF",
-              color: "white",
-            }}
-          >
-            Reeintentar
-          </button>
-        </Box>
-      </Box>
-    );
-  } */
+  const { goToHome } = useMyNavigation();
+  const { seconds } = useCountDown(60);
+  useEffect(() => {
+    if (seconds === 0) {
+      goToHome();
+    }
+  }, [seconds]);
+
   return (
     <Box
+      onClick={() => goToHome()}
       h={"100vh"}
       w={"100%"}
       bg={"#6321C1"}

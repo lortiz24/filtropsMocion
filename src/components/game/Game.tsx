@@ -2,39 +2,12 @@ import { alpha, Box, Image, Stack, Text } from "@mantine/core";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
 import { useCountDown } from "../../hooks/useCountDown";
 import { useEffect, useLayoutEffect } from "react";
-import * as deepar from "deepar";
 import html2canvas from "html2canvas";
 import { firebaseApp } from "../../config/firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAppStore } from "../../hooks/useAppStore";
-deepar.initialize;
-const effects = {
-  bigote: "",
-  alas: "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2Falas.deepar?alt=media&token=78760047-a5b9-4ca0-bbb9-447414eb9054",
-  glasses:
-    "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2FGlasses.deepar?alt=media&token=0cc77777-f4ed-4573-ad1c-2fc0067a0c5d",
-  mascara:
-    "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2Fmascara.deepar?alt=media&token=bad27506-0787-4a22-8604-8e19b3da917c",
-};
+import { deepARManager } from "../../config/deepar";
 
-let deepAR: deepar.DeepAR | null = null;
-const main = async () => {
-  if (deepAR) return;
-  deepAR = await deepar.initialize({
-    licenseKey:
-      "4f0a7bfaa7ad51bf4de83dc9d9db7ff36d5efe504894d1d30580de169b9e278dbd994020650efcac",
-    previewElement: document.querySelector("#deepar-canvas") as HTMLElement,
-    effect: effects.alas,
-    additionalOptions: {
-      hint: "enableFaceTrackingCnn",
-      cameraConfig: {
-        facingMode: "environment",
-        disableDefaultCamera: true,
-      },
-    },
-  });
-};
-main();
 export const Game = () => {
   const { goToFinished } = useMyNavigation();
   const { seconds } = useCountDown(10);
@@ -42,6 +15,7 @@ export const Game = () => {
 
   const captureAndUploadImage = async () => {
     const element = document.getElementById("allCapture");
+    const image = await deepARManager.getInstanceDeepAR()?.takeScreenshot();
 
     if (element) {
       const canvas = await html2canvas(element);
@@ -49,7 +23,10 @@ export const Game = () => {
         if (blob) {
           // Subida a Firebase
           const storage = getStorage(firebaseApp);
-          const storageRef = ref(storage, `captures/${Date.now()}.png`);
+          const storageRef = ref(
+            storage,
+            `colombia4.0/captures/${Date.now()}.png`
+          );
 
           try {
             console.log("blob", blob);
@@ -68,11 +45,17 @@ export const Game = () => {
   };
 
   useLayoutEffect(() => {
-    if (deepAR) {
-      deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
-      deepAR.startCamera();
-    }
-  }, [deepAR]);
+    const initializeDeepAR = async () => {
+      await deepARManager.initialize();
+      deepARManager.getInstanceDeepAR()?.startCamera();
+    };
+
+    initializeDeepAR();
+
+    return () => {
+      deepARManager.stopCamera(); // Limpieza al desmontar
+    };
+  }, []);
 
   useEffect(() => {
     if (seconds === 0) {
@@ -120,21 +103,21 @@ export const Game = () => {
             src={"assets/game/ButtonAlas.png"}
             w={"282.84px"}
             onClick={() => {
-              if (deepAR) deepAR.switchEffect(effects.alas);
+              deepARManager.switchEffect("alas");
             }}
           />
           <Image
             src={"assets/game/ButtonBigote.png"}
             w={"282.84px"}
             onClick={() => {
-              if (deepAR) deepAR.switchEffect(effects.glasses);
+              deepARManager.switchEffect("glasses");
             }}
           />
           <Image
             src={"assets/game/ButtonMascara.png"}
             w={"282.84px"}
             onClick={() => {
-              if (deepAR) deepAR.switchEffect(effects.mascara);
+              deepARManager.switchEffect("mascara");
             }}
           />
         </Stack>
