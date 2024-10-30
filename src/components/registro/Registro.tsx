@@ -102,6 +102,7 @@ export const Registro = () => {
             const epa = await checkInService.saveUserParticipation({
               email,
               names: name,
+              points: 20,
             });
             console.log("epa", epa);
             goToGame();

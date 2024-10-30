@@ -91,10 +91,10 @@ export const ShowPhoto = () => {
           zIndex: 10000,
           display: "flex",
           justifyContent: "center",
-          alignItems: "end",
+          alignItems: "center",
         }}
       >
-        <Text fz={"400px"} c={alpha("#00000", 0.3)}>
+        <Text fz={"400px"} c={alpha("#00000", 0.8)}>
           Procesando...
         </Text>
       </Box>

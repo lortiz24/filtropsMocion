@@ -23,7 +23,7 @@ const main = async () => {
   if (deepAR) return;
   deepAR = await deepar.initialize({
     licenseKey:
-      "3535704d98aa530936e93d59791f01fdf4035a0332abda643a87dca0e09f271d1d5d3e2efc5358ff",
+      "7af117355cf4e47dd39ec397e838f82f64bcefeb3923bb2239caffdeee686bd0cbd4f6599d3f30cf",
     previewElement: document.querySelector("#deepar-canvas") as HTMLElement,
     effect: effects.alas,
     additionalOptions: {
