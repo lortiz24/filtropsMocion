@@ -88,7 +88,7 @@ export const ShowPhoto = () => {
         style={{
           width: "100%",
           height: "100%",
-          zIndex: 100,
+          zIndex: 10000,
           display: "flex",
           justifyContent: "center",
           alignItems: "end",

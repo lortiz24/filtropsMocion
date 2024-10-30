@@ -38,7 +38,7 @@ const main = async () => {
 main();
 
 export const Game = () => {
-  const { seconds } = useCountDown(30);
+  const { seconds } = useCountDown(15);
   const { handledSetImageBlob } = useAppStore();
   const { goToShowPhoto } = useMyNavigation();
 
