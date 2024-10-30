@@ -38,10 +38,10 @@ const main = async () => {
 main();
 
 export const Game = () => {
-  const { seconds } = useCountDown(10);
+  const { seconds } = useCountDown(30);
   const { handledSetImageBlob } = useAppStore();
   const { goToShowPhoto } = useMyNavigation();
-  console.log("deepAR", deepAR);
+
   useLayoutEffect(() => {
     if (deepAR) {
       deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
@@ -140,7 +140,7 @@ console.log('auxDeepar', auxDeepar)
             src={ButtonBigote}
             w={"282.84px"}
             onClick={() => {
-              if (deepAR) deepAR.switchEffect(effects.bigote);
+              if (deepAR) deepAR.switchEffect(effects.glasses);
               // deepARManager.switchEffect("glasses");
             }}
           />

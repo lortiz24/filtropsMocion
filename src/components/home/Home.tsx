@@ -2,8 +2,15 @@ import { Box, Group, Image, Stack, Text } from "@mantine/core";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
 import tituloHome from "../../../public/assets/home/tituloHom.png";
 import videoBg from "../../../public/assets/home/videoBgHome.webm";
+import { useEffect } from "react";
+import { useAppStore } from "../../hooks/useAppStore";
 export const Home = () => {
   const { goToRegister } = useMyNavigation();
+  const { handledClearSlice } = useAppStore();
+
+  useEffect(() => {
+    handledClearSlice();
+  }, []);
 
   return (
     <Stack h={"100vh"} w={"100%"} pos={"relative"}>

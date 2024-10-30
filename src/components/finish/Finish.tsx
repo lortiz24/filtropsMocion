@@ -8,7 +8,7 @@ import vectorImg from "../../../public/assets/finish/Vector.png";
 import LogoBgRegister from "../../../public/assets/register/LogoBgRegister.png";
 import Genial from "../../../public/assets/finish/Genial.png";
 export const Finish = () => {
-  const { downloadImageUrl } = useAppStore();
+  const { downloadImageUrl, handledClearSlice } = useAppStore();
   const { goToHome } = useMyNavigation();
   const { seconds } = useCountDown(60);
   useEffect(() => {
@@ -19,7 +19,10 @@ export const Finish = () => {
 
   return (
     <Box
-      onClick={() => goToHome()}
+      onClick={() => {
+        handledClearSlice();
+        goToHome();
+      }}
       h={"100vh"}
       w={"100%"}
       bg={"#6321C1"}

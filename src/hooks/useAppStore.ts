@@ -12,10 +12,15 @@ export const useAppStore = () => {
     dispatch(onSetImageBlob(downloadImageUrl));
   };
 
+  const handledClearSlice = () => {
+    onSetDownloadImageUrl("");
+    onSetImageBlob("");
+  };
   return {
     downloadImageUrl,
     handledSetImageUrl,
     imageBlob,
     handledSetImageBlob,
+    handledClearSlice,
   };
 };
