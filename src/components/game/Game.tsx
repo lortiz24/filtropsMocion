@@ -44,6 +44,7 @@ export const Game = () => {
 
   useLayoutEffect(() => {
     if (deepAR) {
+      deepAR.setZoom(0.5);
       deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
       deepAR.startCamera();
     }

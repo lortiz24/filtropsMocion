@@ -1,4 +1,4 @@
-import { alpha, Box, Text } from "@mantine/core";
+import { Box } from "@mantine/core";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
 import { useEffect } from "react";
 import html2canvas from "html2canvas";
@@ -81,23 +81,6 @@ export const ShowPhoto = () => {
 
   return (
     <Box h={"100vh"} w={"100%"} pos={"relative"} id="allCapture">
-      <Box
-        pos={"absolute"}
-        left={0}
-        bottom={0}
-        style={{
-          width: "100%",
-          height: "100%",
-          zIndex: 10000,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text fz={"400px"} c={alpha("#00000", 0.8)}>
-          Procesando...
-        </Text>
-      </Box>
       <img src={imageBlob} width={"100%"} height={"100%"} />
       <Box
         pos={"absolute"}

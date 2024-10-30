@@ -14,7 +14,11 @@ export const Finish = () => {
   useEffect(() => {
     if (seconds === 0) {
       goToHome();
+      handledClearSlice();
     }
+    return () => {
+      handledClearSlice();
+    };
   }, [seconds]);
 
   return (
@@ -36,7 +40,7 @@ export const Finish = () => {
       <div
         style={{
           position: "absolute",
-          // backgroundImage: 'url("assets/finish/Vector.png")',
+          backgroundImage: 'url("assets/finish/Vector.png")',
           bottom: 0,
           zIndex: 1,
           backgroundSize: "contain",
