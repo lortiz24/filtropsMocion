@@ -10,7 +10,7 @@ import { useAppStore } from "../../hooks/useAppStore";
 export const ShowPhoto = () => {
   const { handledSetImageUrl, imageBlob } = useAppStore();
 
-  const { seconds } = useCountDown(10);
+  const { seconds } = useCountDown(3);
   const { goToFinished } = useMyNavigation();
 
   const captureAndUploadImage = async () => {
@@ -28,7 +28,9 @@ export const ShowPhoto = () => {
           img.onload = async () => {
             // Redimensionar la imagen si es necesario
             const optimizedCanvas = document.createElement("canvas");
-            const ctx = optimizedCanvas.getContext("2d") as CanvasRenderingContext2D;
+            const ctx = optimizedCanvas.getContext(
+              "2d"
+            ) as CanvasRenderingContext2D;
 
             const maxWidth = 800; // Ancho máximo deseado
             const scaleFactor = Math.min(maxWidth / img.width, 1);
@@ -76,8 +78,8 @@ export const ShowPhoto = () => {
   };
 
   useEffect(() => {
-    if (seconds === 0) captureAndUploadImage();
-  }, [seconds]);
+    captureAndUploadImage();
+  }, []);
 
   return (
     <Box h={"100vh"} w={"100%"} pos={"relative"} id="allCapture">
