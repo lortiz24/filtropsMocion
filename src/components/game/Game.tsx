@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect } from "react";
 // import { deepARManager } from "../../config/deepar";
 import { useAppStore } from "../../hooks/useAppStore";
 import ButtonAlas from "../../../public/assets/game/ButtonAlas.png";
-import ButtonBigote from "../../../public/assets/game/ButtonBigote.png";
+import ButtonBigote from "../../../public/assets/game/Glasses.png";
 import ButtonMascara from "../../../public/assets/game/ButtonMascara.png";
 import * as deepar from "deepar";
 
@@ -29,7 +29,7 @@ const main = async () => {
     additionalOptions: {
       hint: "enableFaceTrackingCnn",
       cameraConfig: {
-        facingMode: "environment",
+        facingMode: "user",
         disableDefaultCamera: true,
       },
     },
@@ -44,8 +44,8 @@ export const Game = () => {
 
   useLayoutEffect(() => {
     if (deepAR) {
-      deepAR.setZoom(0.5);
       deepAR.changePreviewElement(document.getElementById("myNewDiv")!);
+      deepAR.setZoom(0.5);
       deepAR.startCamera();
     }
   }, [deepAR]);
@@ -141,6 +141,7 @@ console.log('auxDeepar', auxDeepar)
             src={ButtonBigote}
             w={"282.84px"}
             onClick={() => {
+              console.log('deepAR', deepAR)
               if (deepAR) deepAR.switchEffect(effects.glasses);
               // deepARManager.switchEffect("glasses");
             }}
