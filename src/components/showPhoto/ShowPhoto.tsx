@@ -1,6 +1,5 @@
 import { alpha, Box, Text } from "@mantine/core";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
-import { useCountDown } from "../../hooks/useCountDown";
 import { useEffect } from "react";
 import html2canvas from "html2canvas";
 import { firebaseApp } from "../../config/firebase";
@@ -10,7 +9,6 @@ import { useAppStore } from "../../hooks/useAppStore";
 export const ShowPhoto = () => {
   const { handledSetImageUrl, imageBlob } = useAppStore();
 
-  const { seconds } = useCountDown(3);
   const { goToFinished } = useMyNavigation();
 
   const captureAndUploadImage = async () => {
@@ -96,8 +94,8 @@ export const ShowPhoto = () => {
           alignItems: "end",
         }}
       >
-        <Text fz={"500px"} c={alpha("#00000", 0.3)}>
-          {seconds}
+        <Text fz={"400px"} c={alpha("#00000", 0.3)}>
+          Procesando...
         </Text>
       </Box>
       <img src={imageBlob} width={"100%"} height={"100%"} />
