@@ -11,11 +11,11 @@ import * as deepar from "deepar";
 
 const effects = {
   bigote: "",
-  alas: "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2Falas.deepar?alt=media&token=78760047-a5b9-4ca0-bbb9-447414eb9054",
+  alas: "../../../public/effects/alas.deepar",
   glasses:
-    "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2FGlasses.deepar?alt=media&token=0cc77777-f4ed-4573-ad1c-2fc0067a0c5d",
+    "../../../public/assets/game/Glasses.png",
   mascara:
-    "https://firebasestorage.googleapis.com/v0/b/eviusauth.appspot.com/o/colombia4.0%2Fmascara.deepar?alt=media&token=bad27506-0787-4a22-8604-8e19b3da917c",
+    "../../../public/effects/mascara.deepar",
 };
 let deepAR: deepar.DeepAR | null = null;
 
@@ -141,7 +141,7 @@ console.log('auxDeepar', auxDeepar)
             src={ButtonBigote}
             w={"282.84px"}
             onClick={() => {
-              console.log('deepAR', deepAR)
+              console.log("deepAR", deepAR);
               if (deepAR) deepAR.switchEffect(effects.glasses);
               // deepARManager.switchEffect("glasses");
             }}
