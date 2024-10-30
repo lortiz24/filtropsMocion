@@ -1,13 +1,16 @@
-import { Box } from "@mantine/core";
+import { alpha, Box, Text } from "@mantine/core";
 import { useMyNavigation } from "../../hooks/useMyNavigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import { firebaseApp } from "../../config/firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAppStore } from "../../hooks/useAppStore";
+import { useCountDown } from "../../hooks/useCountDown";
 
 export const ShowPhoto = () => {
   const { handledSetImageUrl, imageBlob } = useAppStore();
+  const { seconds } = useCountDown(10);
+  const [downloadUrl, setDownloadUrl] = useState("");
 
   const { goToFinished } = useMyNavigation();
 
@@ -24,7 +27,6 @@ export const ShowPhoto = () => {
           const img = new Image();
           img.src = URL.createObjectURL(blob);
           img.onload = async () => {
-            // Redimensionar la imagen si es necesario
             const optimizedCanvas = document.createElement("canvas");
             const ctx = optimizedCanvas.getContext(
               "2d"
@@ -59,8 +61,9 @@ export const ShowPhoto = () => {
                     await uploadBytes(storageRef, optimizedBlob);
                     const downloadURL = await getDownloadURL(storageRef);
                     console.log("Image uploaded and available at", downloadURL);
+
+                    setDownloadUrl(downloadURL);
                     handledSetImageUrl(downloadURL);
-                    goToFinished();
                   } catch (uploadError) {
                     console.error("Error uploading image:", uploadError);
                   }
@@ -76,11 +79,34 @@ export const ShowPhoto = () => {
   };
 
   useEffect(() => {
+    if (seconds === 0 && downloadUrl) {
+      goToFinished();
+    }
+  }, [seconds, downloadUrl]);
+
+  useEffect(() => {
     captureAndUploadImage();
   }, []);
 
   return (
     <Box h={"100vh"} w={"100%"} pos={"relative"} id="allCapture">
+      <Box
+        pos={"absolute"}
+        left={0}
+        bottom={0}
+        style={{
+          width: "100%",
+          height: "100%",
+          zIndex: 10000,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "end",
+        }}
+      >
+        <Text fz={"200px"} c={alpha("#00000", 0.7)}>
+          {seconds}
+        </Text>
+      </Box>
       <img src={imageBlob} width={"100%"} height={"100%"} />
       <Box
         pos={"absolute"}

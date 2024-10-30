@@ -11,11 +11,9 @@ import * as deepar from "deepar";
 
 const effects = {
   bigote: "",
-  alas: "../../../public/effects/alas.deepar",
-  glasses:
-    "../../../public/assets/game/Glasses.png",
-  mascara:
-    "../../../public/effects/mascara.deepar",
+  alas: "effects/alas.deepar",
+  glasses: "effects/Glasses.deepar",
+  mascara: "effects/mascara.deepar",
 };
 let deepAR: deepar.DeepAR | null = null;
 
